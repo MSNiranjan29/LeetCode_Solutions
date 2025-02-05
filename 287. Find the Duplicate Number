@@ -1,0 +1,62 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        boolean[] flag = new boolean[n+1]; 
+        for (int i : nums) {
+            if (flag[i]) return i;  
+            else flag[i] = true;  
+        }
+        return -1;
+    }
+}
+
+
+
+// Using Frequency counter Optimal Approach
+class SolutionOptimal {
+    public int findDuplicate(int[] nums) {
+        int[] counts = new int[nums.length];
+        for(int num : nums ){
+            counts[num]++;
+            if (counts[num] > 1) {
+            return num;
+            }
+        }
+        return -1;
+    }
+}
+
+// Using Floyd's Cycle Detection Algorithm (Better SOl)
+class SolutionFloyds {
+    public int findDuplicate(int[] nums) {
+        int slow = nums[0];  
+        int fast = nums[0];
+
+        do {
+            slow = nums[slow];      
+            fast = nums[nums[fast]]; 
+        } while (slow != fast);
+
+        slow = nums[0]; 
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow; 
+    }
+}
+
+// For loops
+class SolutionBrute {
+    public int findDuplicate(int[] nums) {
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i+1; j < nums.length; j++){
+                if(nums[i] == nums[j]){
+                    return nums[i];
+                }
+            }
+        }
+        return -1;
+    }
+}
