@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isValid(String s) {
+        int top = -1;
+        int n = s.length();
+        char[] list = new char[n];
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                list[++top] = c; 
+            } else {
+                if (top == -1) return false; 
+                
+                if ((c == ')' && list[top] == '(') || 
+                    (c == '}' && list[top] == '{') || 
+                    (c == ']' && list[top] == '[')) {
+                    top--; 
+                } else {
+                    return false; 
+                }
+            }
+        }
+
+        return top == -1;
+    }
+}
