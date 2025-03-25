@@ -1,0 +1,64 @@
+class Solution {
+    int median(int mat[][]) {
+        // 1d Array
+        int row = mat.length;
+        int col = mat[0].length;
+        int n = row * col;
+        int count = 0;
+        int[] array = new int[n];
+        
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col; j++){
+            array[count] = mat[i][j];
+            count++;
+        }
+    }
+    
+    // Sorting
+    divide(array, 0, n-1);
+    
+
+    if(n % 2 == 0){
+        return (array[n/2 - 1] + array[n / 2])/2;
+    }
+    return array[n/2];
+    
+    }
+    // Divide
+    public static void divide(int[] array, int si, int ei){
+        
+        if(si < ei){
+            int mid = si + (ei - si) / 2;
+            
+            divide(array, si, mid);
+            divide(array, mid+1, ei);
+            conquer(array, si, mid, ei);
+        }
+    }
+    // Sort
+    public static void conquer(int[] array, int si, int mid, int ei){
+        int  i = si, j = mid + 1, k = 0;
+        int[] arr = new int[ei - si + 1];
+        
+        while(i <= mid && j <=ei){
+            if(array[i] < array[j]){
+                arr[k++] = array[i++];
+            }
+            else{
+                arr[k++] = array[j++];
+            }
+        }
+        
+        while(i <= mid){
+            arr[k++] = array[i++];
+        }
+        
+        while(j <= ei){
+            arr[k++] = array[j++];
+        }
+        
+        for(int x = 0; x <arr.length; x++){
+            array[si+x] = arr[x];
+        }
+    }
+}
