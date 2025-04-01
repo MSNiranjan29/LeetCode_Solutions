@@ -49,3 +49,64 @@ class MyQueue {
  * int param_3 = obj.peek();
  * boolean param_4 = obj.empty();
  */
+
+class MyQueue {
+    int[] inputStack;
+    int[] outputStack;
+    int top1;
+    int top2;
+    int capacity;
+
+    public MyQueue() {
+        capacity = 100;
+        inputStack = new int[capacity];
+        outputStack = new int[capacity];
+        top1 = -1; 
+        top2 = -1; 
+    }
+    
+    public void push(int x) {
+        if (top1 < capacity - 1) { 
+            inputStack[++top1] = x;
+        }
+    }
+    
+    public int pop() {
+        if (top2 == -1) {
+            if (top1 == -1) {
+                return -1; 
+            }
+            while (top1 != -1) {
+                outputStack[++top2] = inputStack[top1--];
+            }
+        }
+        return outputStack[top2--];
+    }
+    
+    public int peek() {
+        if (top2 == -1) {
+            if (top1 == -1) {
+                return -1;
+            }
+            while (top1 != -1) {
+                outputStack[++top2] = inputStack[top1--];
+            }
+        }
+        return outputStack[top2];
+    }
+    
+    public boolean empty() {
+        return top1 == -1 && top2 == -1;
+    }
+}
+
+/**
+ * Example usage:
+ * MyQueue obj = new MyQueue();
+ * obj.push(1);
+ * obj.push(2);
+ * System.out.println(obj.peek()); // 1
+ * System.out.println(obj.pop());  // 1
+ * System.out.println(obj.empty()); // false
+ */
+
