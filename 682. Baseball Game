@@ -1,0 +1,24 @@
+class Solution {
+    public int calPoints(String[] operations) {
+        int[] stk = new int[operations.length];
+        int top = -1;
+
+        for (String action : operations) {
+            if (action.equals("C")) {
+                top--; 
+            } else if (action.equals("D")) {
+                stk[++top] = 2 * stk[top - 1]; 
+            } else if (action.equals("+")) {
+                stk[++top] = stk[top - 1] + stk[top - 2]; 
+            } else {
+                stk[++top] = Integer.parseInt(action);
+            }
+        }
+
+        int sum = 0;
+        for (int i = 0; i <= top; i++) {
+            sum += stk[i];
+        }
+        return sum; 
+    }
+}
