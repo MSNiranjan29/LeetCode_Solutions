@@ -1,0 +1,26 @@
+public class Solution {
+    public void duplicateZeros(int[] arr) {
+        int possibleDups = 0;
+        int length = arr.length;
+
+        for (int i = 0; i < length; i++) {
+            if (arr[i] == 0) {
+                possibleDups++;
+            }
+        }
+
+        for (int i = length - 1, j = length + possibleDups - 1; i >= 0; i--) {
+            if (j < length) {
+                arr[j] = arr[i];
+            }
+            j--;
+
+            if (arr[i] == 0) {
+                if (j < length) {
+                    arr[j] = 0; 
+                }
+                j--;
+            }
+        }
+    }
+}
